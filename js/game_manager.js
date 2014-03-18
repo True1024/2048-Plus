@@ -141,9 +141,8 @@ GameManager.prototype.move = function (direction) {
 
             var qStr=(document.URL).split("?")[0]
             var qItems=qStr.split(":")
-            console.log("Data:"+qItems)
-          console.log(merged.value +":"+parseInt(window.targetScore))
-
+          var strData=(JSON.stringify($('.tile.tile-position-3-1')))
+          console.log(strData      )
 
 
 
