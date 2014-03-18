@@ -10,6 +10,13 @@ window.requestAnimationFrame(function () {
   window.targetScore=parseInt(qItems[0])
   var s=parseInt(qItems[1])
   var a=$("body").find(".container").find(".game-container").find(".grid-container")
+
+  var q=$("body").find(".game-container")
+
+  var width=parseInt(s)*122+20
+  q.css("width",width+"px")
+  q.css("height",width+"px")
+  console.log("Setting game width")
   console.log(a)
 
   //var a=$("body").find(".container").find(".heading").find(".hTitle").html(

@@ -29,8 +29,15 @@
         <!-- FORM -->
         <form ng-submit="processForm(user)">
 
-            Target : <input type="text" ng-model="user.target"/>{{tValid}} <br/>
-            Width : <input type="text" ng-model="user.width"/> {{wValid}}<br/>
+            Target number : <input type="text" ng-model="user.target"/>{{tValid}} <br/>
+
+            Size of grid <input type="radio" ng-model="user.width" value="2" />2
+            <input type="radio" ng-model="user.width" value="3" />3
+            <input type="radio" ng-model="user.width" value="4" />4
+            <input type="radio" ng-model="user.width" value="5" />5
+            <input type="radio" ng-model="user.width" value="6" />6
+            <input type="radio" ng-model="user.width" value="7" />7
+            <input type="radio" ng-model="user.width" value="8" />8
 
 
 

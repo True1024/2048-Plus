@@ -25,19 +25,19 @@
     <splitter split-orientation="vertical" split-proportion="0.4600639">
       <split-first>
         <leaf>
-          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="43" column="62" selection-start="1367" selection-end="1367" vertical-scroll-proportion="-23.846153" vertical-offset="111" max-vertical-offset="969">
+                <state line="39" column="67" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.71240103" vertical-offset="393" max-vertical-offset="1088">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.css" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/style/main.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="1097" column="0" selection-start="26389" selection-end="26389" vertical-scroll-proportion="0.9464286" vertical-offset="18278" max-vertical-offset="18751">
+                <state line="1065" column="20" selection-start="25634" selection-end="25634" vertical-scroll-proportion="0.0" vertical-offset="17969" max-vertical-offset="18751">
                   <folding />
                 </state>
               </provider>
@@ -46,7 +46,7 @@
           <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/application.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="9" column="38" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="578">
+                <state line="17" column="26" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="697">
                   <folding />
                 </state>
               </provider>
@@ -59,7 +59,7 @@
           <file leaf-file-name="helpController.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/helpController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="21" column="34" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0" vertical-offset="107" max-vertical-offset="765">
+                <state line="24" column="64" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0" vertical-offset="107" max-vertical-offset="765">
                   <folding />
                 </state>
               </provider>
@@ -92,19 +92,19 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="60" column="8" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-6.0384617" vertical-offset="863" max-vertical-offset="1394">
+                <state line="60" column="8" selection-start="1870" selection-end="1870" vertical-scroll-proportion="1.6344827" vertical-offset="309" max-vertical-offset="1394">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="game_manager.js" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="game_manager.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/game_manager.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="144" column="29" selection-start="4018" selection-end="4018" vertical-scroll-proportion="0.46835443" vertical-offset="2226" max-vertical-offset="4386">
+                <state line="144" column="29" selection-start="4018" selection-end="4018" vertical-scroll-proportion="0.0" vertical-offset="2226" max-vertical-offset="4386">
                   <folding />
                 </state>
               </provider>
@@ -122,13 +122,13 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/helpController.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/main.html" />
         <option value="$PROJECT_DIR$/js/html_actuator.js" />
-        <option value="$PROJECT_DIR$/js/application.js" />
         <option value="$PROJECT_DIR$/js/game_manager.js" />
         <option value="$PROJECT_DIR$/style/main.css" />
+        <option value="$PROJECT_DIR$/js/application.js" />
+        <option value="$PROJECT_DIR$/js/helpController.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -459,13 +459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/helpController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="34" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0" vertical-offset="107" max-vertical-offset="765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/local_score_manager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.6403846" vertical-offset="333" max-vertical-offset="918">
@@ -480,20 +473,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="38" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="578">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="8" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-6.0384617" vertical-offset="863" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/html_actuator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="32" selection-start="831" selection-end="831" vertical-scroll-proportion="49.6" vertical-offset="1716" max-vertical-offset="2533">
@@ -501,23 +480,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/js/game_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="62" selection-start="1367" selection-end="1367" vertical-scroll-proportion="-23.846153" vertical-offset="111" max-vertical-offset="969">
+        <state line="144" column="29" selection-start="4018" selection-end="4018" vertical-scroll-proportion="0.0" vertical-offset="2226" max-vertical-offset="4386">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/game_manager.js">
+    <entry file="file://$PROJECT_DIR$/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="144" column="29" selection-start="4018" selection-end="4018" vertical-scroll-proportion="0.46835443" vertical-offset="2226" max-vertical-offset="4386">
+        <state line="17" column="26" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="697">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/style/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1097" column="0" selection-start="26389" selection-end="26389" vertical-scroll-proportion="0.9464286" vertical-offset="18278" max-vertical-offset="18751">
+        <state line="1065" column="20" selection-start="25634" selection-end="25634" vertical-scroll-proportion="0.0" vertical-offset="17969" max-vertical-offset="18751">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/helpController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="64" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0" vertical-offset="107" max-vertical-offset="765">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="8" selection-start="1870" selection-end="1870" vertical-scroll-proportion="1.6344827" vertical-offset="309" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="67" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.71240103" vertical-offset="393" max-vertical-offset="1088">
           <folding />
         </state>
       </provider>

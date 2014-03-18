@@ -22,8 +22,8 @@ function helpController($scope, $http) {
         console.log(parseInt(p)+":"+parseFloat(p))
         if(parseInt(p)==parseFloat(p)){
 
-            if(parseInt($user.width)<=1||parseInt($user.width)>4){
-                $scope.wValid="Grid size must be between 2 and 4"
+            if(parseInt($user.width)<=1||parseInt($user.width)>8){
+                $scope.wValid="Grid size must be between 2 and 8"
             }else{
                window.location.href="main.html?"+$user.target+":"+$user.width
             }
