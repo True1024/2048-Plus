@@ -1,0 +1,117 @@
+<!Doctype html>
+<html lang="en" ng-app="phonecatApp">
+<head>
+    <meta charset="utf-8">
+    <title>StarBuild</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+
+    <script src="controller/supplyEvent.js"></script>
+    <script src="controller/playEvent.js"></script>
+
+    <script src="model/cards/treasure.js"></script>
+    <script src="model/cards/victory.js"></script>
+    <script src="model/cards/action.js"></script>
+    <script src="model/cards/cardDef.js"></script>
+
+    <script src="model/deck.js"></script>
+    <script src="model/game.js"></script>
+    <script src="model/card.js"></script>
+
+    <script src="view/gameRender.js"></script>
+    <script src="controllers.js"></script>
+
+</head>
+<body ng-controller="PhoneListCtrl">
+
+<h1>Star Build</h1>
+
+<p>This is an incomplete development version of the game. There are bugs and some
+missing functionality.</p>
+
+
+        <div id="title"> <!-- The area where the title is shown -->
+            <h1>Game area</h1>
+        </div>
+
+            <div id="supply"> <!--The area where the cards in the supply is shown -->
+                <span ng-repeat="card in supply">
+                    <button ng-click="buyCard(card.name)">{{card.data}}</button> {{card.num}}
+                </span>
+                No action cards in supply.
+
+                <table style="width:100%">
+                    <tr>
+                    <td>
+                        <p ng-repeat="card in victorySupply">
+                        {{card.name}}
+                        {{card.cost}}
+                        <button ng-click="buyCard(card.name)">{{card.data}}</button> Supply {{card.num}}
+                        </p>
+                    </td>
+                    <td>
+                        <p ng-repeat="card in treasureSupply">
+                        {{card.cost}}
+                        <button ng-click="buyCard(card.name)">{{card.data}}</button> Supply {{card.num}}
+                        </p>
+                    </td>
+                    <td>
+                        <p ng-repeat="card in actionSupply">
+                            {{card.name}}
+                            {{card.cost}}
+                            <button ng-click="buyCard(card.name)">
+                                {{card.data}}
+
+                            </button> Supply {{card.num}}
+
+                        </p>
+                    </td>
+                    </tr>
+                </table>
+
+
+
+                <br>
+
+            </div>
+
+            <div id="play"> <!--The area where played card is shown -->
+                <h3>Play area</h3>
+                <span ng-repeat="card in play">
+                    {{card.name}}
+                </span>
+            </div>
+
+            <div id="hand"> <!-- The area where the player's hand is shown. -->
+                <h3>Hand</h3>
+                <span ng-repeat="card in hand">
+                    <button ng-click="playCard(card.id)">{{card.name}} {{card.data}} {{card.cost}}</button>
+                </span>
+
+                <button ng-click="playTreasures()">Play treasures</button>
+
+            </div>
+
+            <div id="status"> <!-- The area where a player's status during a turn is shown. -->
+                <h3>Game status</h3>
+                <div id="money">{{money}}</div>
+                <div id="actions">{{actions}}</div>
+                <div id="buys">{{buys}}</div>
+            </div>
+
+
+            <div id="discard"> <!--Shows a player's discard pile. -->
+                <h3>{{discardPile}}</h3>
+            </div>
+
+            <div id="draw"> <!--Shows a player's draw pile. -->
+                <h3>{{drawPile}}</h3>
+            </div>
+
+            <button ng-click="endTurn()">End turn</button>
+
+
+
+<p>Game mechanics based on Dominion deck-building game.</p>
+</body>
+</html>
