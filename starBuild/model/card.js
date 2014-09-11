@@ -6,8 +6,11 @@ function Card(data){
     Card.num++;
 }
 
-Card.prototype.getType=function(){
-    return this.data.getType();
+Card.prototype.hasType=function(type){
+    return this.data.hasSubtype(type);
+}
+Card.prototype.getMainType=function(){
+    return this.data.getMainType();
 }
 
 Card.prototype.getName=function(){
@@ -37,8 +40,8 @@ Card.prototype.getTreasureMoney=function(){
 /**
  * This returns the number of VP the card is worth.
  */
-Card.prototype.getVP=function(){
-    return this.data.getPoints();
+Card.prototype.getVP=function(deck){
+    return this.data.getPoints(deck);
 }
 
 Card.prototype.getActions=function(){
@@ -57,17 +60,57 @@ Card.prototype.getMoney=function(){
     return this.data.getMoney();
 }
 
+Card.prototype.getData=function(){
+    return this.data;
+}
+
+Card.prototype.getVP=function(){
+    return this.data.getVP(this.owner);
+}
+
 //What will be displayed on the card when it is in a player's hand.
 Card.prototype.cardInfo=function(){
     var info=this.data.getName()+'\n';
-    if(this.getType()==CardDef.Treasure){
+    if(this.getMainType()==CardDef.Treasure){
         info+="$"+this.data.getMoney()+"   ";
-    }if(this.getType()==CardDef.Victory){
+    }if(this.getMainType()==CardDef.Victory){
         info+=this.data.getPoints()+'VP'+"   ";
     }
     info+="Cost:"+this.getCost();
     return info;
 
+}
+
+//Does the card require additional input from the player after being played?
+Card.prototype.requiresInput=function(){
+    return this.data.requiresInput();
+}
+
+//Returns data to define the user interface that is necessary when the card is played
+Card.prototype.getUI=function(player){
+    return this.data.getUI(player);
+}
+
+/**
+ * Resolves special rules for a card.
+ * @param player
+ * @param game
+ */
+Card.prototype.specialRules=function(player,game){
+    this.data.specialRules(player,game);
+}
+
+
+Card.prototype.play=function(selections,player){
+    this.data.play(selections,player);
+}
+
+Card.prototype.hasDuration=function(){
+    return this.data.hasDuration();
+}
+
+Card.prototype.getDuration=function(){
+    return this.data.getDuration();
 }
 
 

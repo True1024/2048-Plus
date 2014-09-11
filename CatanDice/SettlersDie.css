@@ -22,8 +22,8 @@ img.bg {
 
 #die {
     position: relative;
-    margin: 80px auto;
-    width: 60%;
+    margin: 10px auto;
+    width: 90%;
     padding: 20px;
     background: rgba(255,255,255,0.7);
     -moz-box-shadow: 0 0 10px #888888;

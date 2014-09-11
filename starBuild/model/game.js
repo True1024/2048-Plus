@@ -2,71 +2,112 @@
 function Game(){
 
     var turns=1;
-    var p1=new Deck();
-    var piles=Array();
+    var p1=new Player(this);//The player
+    var p2=new Player(this);
 
-    this.playCard=function(idx){
-        p1.playCard(idx);
+    var activePlayer=p1;
+
+    var piles={};
+    var log=new Log();
+
+    this.playCardByID=function(idx){
+        p1.playCardByID(idx);
+    }
+
+    this.countEmptyPiles=function(){
+        var empty=0;
+        Object.keys(piles).forEach(function(name){
+            var pile=piles[name];
+            if(pile.getCardNum()==0){
+                empty++;
+            }
+        });
+        return empty;
+    }
+    this.gameEnd=function(){
+        if(piles["Star"].getCardNum()==0){
+            return true;
+        }
+        var empty=this.countEmptyPiles();
+        if(empty>=3){
+            return true;
+        }
+        return false;
     }
 
     this.nextTurn=function(){
+        log.clear();
         p1.endTurn();
         turns++;
+        activePlayer=p2;
+        AI.takeTurn(p2,this,log);
+        p2.endTurn();
+        activePlayer=p1;
+        p1.startTurn();
     }
 
-    this.findSupplyPile=function(name){
-        var rPile=null;
-        for(var i=0;i<piles.length;i++){
-            if(piles[i][piles[i].length-1].getName()==name){
-                return piles[i];
-            }
-        }
-        return null;
+    this.hasCard=function(card){
+        return (card.getName()) in piles;
+    }
+
+    var findSupplyPile=function(name){
+        return piles[name];
     }
 
     this.removeFromSupply=function(card){
-        for(var i=0;i<piles.length;i++){
-            for(var j=0;j<piles.length;j++){
-                if(piles[i][j]==card){
-                    piles[i].pop();
-                }
-            }
-        }
+        var pile=piles[card.getName()];
+        return pile.remove(card.getName());
     }
 
-    var addSupply=function(cardInfo,num){
-        var pile=Array();
-        for(var i=0;i<num;i++){
-            pile.push(new Card(cardInfo));
-        }
-        piles.push(pile);
+    this.getPlayers=function(){
+        var players=[];
+        players.push(p1);
+        players.push(p2);
+        return players;
     }
+
+
 
     //Sets up the game and the view;
     this.setup=function(){
         p1.createDeck();
         p1.shuffle();
         p1.drawCards(5);
-        addSupply(CardDef.copper,CardDef.copper.setupNum());
-        addSupply(CardDef.silver,CardDef.silver.setupNum());
-        addSupply(CardDef.gold,CardDef.gold.setupNum());
-        addSupply(CardDef.platinum,CardDef.platinum.setupNum());
 
-        addSupply(CardDef.estate,Victory.setupNum);
-        addSupply(CardDef.duchy,Victory.setupNum);
-        addSupply(CardDef.province,Victory.setupNum);
-        addSupply(CardDef.colony,Victory.setupNum);
+        p2.createDeck();
+        p2.shuffle();
+        p2.drawCards(5);
 
-        addSupply(CardDef.village,Action.setupNum);
-        addSupply(CardDef.woodcutter,Action.setupNum);
+        piles[CardDef.curse.getName()]=new Pile(CardDef.curse);
+        console.log("Setting up curse:"+JSON.stringify(CardDef.curse));
+        piles[CardDef.copper.getName()]=new Pile(CardDef.copper);
+        piles[CardDef.silver.getName()]=new Pile(CardDef.silver);
+        piles[CardDef.gold.getName()]=new Pile(CardDef.gold);
+        piles[CardDef.platinum.getName()]=new Pile(CardDef.platinum);
 
-        addSupply(CardDef.workersVillage,Action.setupNum);
-        addSupply(CardDef.smithy,Action.setupNum);
+        piles[CardDef.estate.getName()]=new Pile(CardDef.estate);
+        piles[CardDef.duchy.getName()]=new Pile(CardDef.duchy);
+        piles[CardDef.province.getName()]=new Pile(CardDef.province);
+        piles[CardDef.colony.getName()]=new Pile(CardDef.colony);
 
-        addSupply(CardDef.festival,Action.setupNum);
-        addSupply(CardDef.laboratory,Action.setupNum);
-        addSupply(CardDef.market,Action.setupNum);
-        addSupply(CardDef.bazaar,Action.setupNum);
+        var randCards=0;
+        while(randCards<10){
+            var idx=Math.floor((Math.random())*CardDef.kingdomCards.length);
+            var card=CardDef.kingdomCards[idx];
+            if(!(card.getName() in piles)){
+                randCards++;
+                piles[card.getName()]=new Pile(card);
+                console.log("Adding card:"+card.getName());
+            }
+        }
+
+        Object.keys(piles).forEach(function(name){
+            var pile=piles[name];
+            pile.addSupply(pile.getDefaultSupply());
+        });
+
+        log.push("Setting up game");
+
     }
 
     this.getPlayerStatus=function($scope){
@@ -80,21 +121,31 @@ function Game(){
     }
 
     this.getActiveHand=function(){
-        return p1.getHand();
+        return activePlayer.getHand();
     }
 
     this.getActivePlay=function(){
-        return p1.getPlayed();
+        return activePlayer.getPlayed();
     }
-
-
 
     this.getPiles=function(){
         return piles;
     }
 
-    this.playCard=function(id){
-        p1.playCard(id)
+    this.getPileData=function(){
+        var data=[];
+        Object.keys(piles).forEach(function(name){
+            var pile=piles[name];
+            data.push({'info':pile.getTopCard(),'cardDef':pile.getCardInfo(),'num':pile.getCardNum()});
+
+        });
+        return data;
+    }
+
+    this.playCardByID=function(id){
+        var card=activePlayer.playCardByID(id);
+        log.push(card);
+        return card;
     }
 
     /**
@@ -102,12 +153,13 @@ function Game(){
      * @param id
      */
     this.buyCard=function(name){
-        var pile=this.findSupplyPile(name);
-        var card=pile.pop();
-        if(p1.buyCard(card)==true){
-            console.log("Purchase successful");
+        var pile=piles[name];
+        var card=pile.removeCard();
+        if(activePlayer.buyCard(card)==true){
+            log.push("Purchased "+name);
         }else{
-            pile.push(card);
+            pile.addCardToHand(card);
+            log.push("Not enough money to buy "+name);
         }
     }
 
@@ -116,5 +168,39 @@ function Game(){
      */
     this.playTreasures=function(){
         p1.playTreasures();
+    }
+
+    this.getLogMessages=function(){
+        return log.toArray();
+    }
+
+    this.addToLog=function(message){
+        log.push(message);
+    }
+
+    this.getScores=function(){
+        var scores={};
+        scores["p1"]=p1.countPoints();
+        scores["p2"]=p2.countPoints();
+        if(scores["p1"]>scores["p2"]){
+            scores["winner"]="Player 1";
+        }else{
+            scores["winner"]="Player 2";
+        }
+        return scores;
+    }
+
+    this.removeCard=function(cDef){
+        return this.removeFromSupply(cDef);
+    }
+
+    this.giveCard=function(player,cDef){
+        console.log("Name:"+cDef.getName());
+        var card=this.removeFromSupply(cDef);
+        player.gainCard(card);
+    }
+
+    this.getActivePlayer=function(){
+        return activePlayer;
     }
 }

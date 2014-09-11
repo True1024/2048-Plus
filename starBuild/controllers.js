@@ -4,28 +4,31 @@ function Render(){
     var game=new Game();
     game.setup();
 
+    var optSel=Array();
+    var optCard=null;
+
+    this.setOptCard=function(card){
+        optCard=card;
+    }
+
+    this.playOpt=function(id){
+        console.log(JSON.stringify(optSel));
+        optSel.push(id);
+    }
+
+    /**
+     * This function is to play a card after additional input was provided
+     */
+    this.resolvePlay=function(){
+        optCard.play(optSel,game.getActivePlayer());
+        optSel=[];
+    }
+
     var getActionData=function(card){
         return {'name':card.getName(),
-            'cost':card.getCost(),
+            'cost':"$"+card.getCost(),
             'data':"+"+card.getActions()+" actions"+" +"+card.getCards()+" cards"+" +"+card.getBuys()+ " buys"+" +$"+card.getMoney(),
             'id':card.getID()}
-    }
-    this.actionSupply=function(){
-        var data=[];
-        var piles=game.getPiles();
-        for(var i=0;i<piles.length;i++){
-            var card=piles[i][0];
-            if(card==undefined){
-                data.push({'data':"Supply empty"})
-            }
-            else if(piles[i][0].getType()==CardDef.Action){
-                console.log("Action card");
-                var cData=getActionData(card);
-                cData['num']=piles[i].length;
-                data.push(cData);
-            }
-        }
-        return data;
     }
 
     var getTreasureData=function(card){
@@ -36,18 +39,40 @@ function Render(){
         return {'name':card.getName(),'cost':"$"+card.getCost(),'data':"+"+card.getVP()+" VP",'id':card.getID()};
     }
 
+    this.actionSupply=function(){
+        var data=[];
+        var piles=game.getPileData();
+        for(var i=0;i<piles.length;i++){
+            var card=piles[i]['info'];
+            if(piles[i]['cardDef'].getMainType()==CardDef.Action){
+                if(card==undefined){
+                    data.push({'data':"Supply empty"})
+                }else{
+                    var cData=getActionData(card);
+                    cData['num']=piles[i]['num'];
+                    data.push(cData);
+                }
+
+            }
+        }
+        return data;
+    }
+
+
+
     this.treasureSupply=function(){
         var data=[];
-        var piles=game.getPiles();
+        var piles=game.getPileData();
         for(var i=0;i<piles.length;i++){
-            var card=piles[i][0];
-            if(piles[i][0]==undefined){
-                data.push({'data':"Supply empty"})
-            }
-            else if(piles[i][0].getType()==CardDef.Treasure){
-                var tData=getTreasureData(card);
-                tData['num']=piles[i].length;
-                data.push(tData);
+            var card=piles[i]['info'];
+            if(piles[i]['cardDef'].getMainType()==CardDef.Treasure){
+                if(card==undefined){
+                    data.push({'data':"Supply empty"})
+                }else{
+                    var tData=getTreasureData(card);
+                    tData['num']=piles[i]['num'];
+                    data.push(tData);
+                }
             }
         }
         return data;
@@ -56,16 +81,17 @@ function Render(){
 
     this.victorySupply=function(){
         var data=[];
-        var piles=game.getPiles();
+        var piles=game.getPileData();
         for(var i=0;i<piles.length;i++){
-            var card=piles[i][0];
-            if(card==undefined){
-                data.push({'data':"Supply empty"})
-            }
-            else if(piles[i][0].getType()==CardDef.Victory){
-                var vData=getVictoryData(card);
-                vData['num']=piles[i].length;
-                data.push(vData);
+            var card=piles[i]['info'];
+            if(piles[i]['cardDef'].getMainType()==CardDef.Victory){
+                if(card==undefined){
+                    data.push({'data':"Supply empty"})
+                }else{
+                    var vData=getVictoryData(card);
+                    vData['num']=piles[i]['num'];
+                    data.push(vData);
+                }
             }
         }
         return data;
@@ -75,14 +101,17 @@ function Render(){
         var data=[];
         var hand=game.getActiveHand();
         for(var i=0;i<hand.length;i++){
-            if(hand[i].getType()==CardDef.Treasure){
+            if(hand[i].getMainType()==CardDef.Treasure){
                 var tData=getTreasureData(hand[i]);
+                tData["type"]="Treasure";
                 data.push(tData);
-            }if(hand[i].getType()==CardDef.Victory){
+            }if(hand[i].getMainType()==CardDef.Victory){
                 var vData=getVictoryData(hand[i]);
+                vData["type"]="Victory";
                 data.push(vData);
-            }if(hand[i].getType()==CardDef.Action){
+            }if(hand[i].getMainType()==CardDef.Action){
                 var aData=getActionData(hand[i]);
+                aData["type"]="Action";
                 data.push(aData);
             }
         }
@@ -93,7 +122,6 @@ function Render(){
         var data=[];
         var play=game.getActivePlay();
         for(var i=0;i<play.length;i++){
-            console.log(play[i].getName());
             data.push({'name':play[i].getName(),'data':play[i].cardInfo()});
         }
         return data;
@@ -104,7 +132,6 @@ function Render(){
     }
 
     this.endTurn=function(){
-        console.log("Ending turn");
         game.nextTurn();
     }
 
@@ -116,12 +143,28 @@ function Render(){
         game.buyCard(name);
     }
 
-    this.playCard=function(id){
-        game.playCard(id);
+    this.playCardByID=function(id){
+        return game.playCardByID(id);
     }
 
     this.playTreasures=function(){
         game.playTreasures();
+    }
+
+    this.getLogMessages=function(){
+        return game.getLogMessages();
+    }
+
+    this.gameEnd=function(){
+        return game.gameEnd();
+    }
+
+    this.getScores=function(){
+        return game.getScores();
+    }
+
+    this.getActivePlayer=function(){
+        return game.getActivePlayer();
     }
 }
 
@@ -133,27 +176,48 @@ phonecatApp.controller('PhoneListCtrl', function($scope) {
     var game=new Render();
     var refreshData=function(){
 
+        $scope.log=game.getLogMessages();
         $scope.actionSupply=game.actionSupply();
         $scope.treasureSupply=game.treasureSupply();
         $scope.victorySupply=game.victorySupply();
 
-        $scope.hand=game.handData();
-        $scope.play=game.playArea();
+        if(game.gameEnd()==false){
+            $scope.hand=game.handData();
+            $scope.play=game.playArea();
 
-        var data=game.getPlayerStatus();
-        $scope.money="$"+data["money"];
-        $scope.actions="Actions:"+data["actions"];
-        $scope.buys="Buys:"+data["buys"];
+            var data=game.getPlayerStatus();
+            $scope.money="$"+data["money"];
+            $scope.actions="Actions:"+data["actions"];
+            $scope.buys="Buys:"+data["buys"];
 
-        $scope.discardPile="Discard pile: "+data["discard"]+" cards";
-        $scope.drawPile="Draw pile:"+data["draw"]+" cards";
-        $scope.orderProp = 'age';
-    }
+            $scope.discardPile="Discard pile: "+data["discard"]+" cards";
+            $scope.drawPile="Draw pile:"+data["draw"]+" cards";
+            $scope.orderProp = 'age';
+        }else{
+            var log=Array();
+            var pData=game.getScores();
+            log.push("Game over");
+            log.push("Player 1 score:"+pData["p1"]);
+            log.push("Player 2 score:"+pData["p2"]);
+            log.push("The winner is: "+pData["winner"]);
+            $scope.log=log;
+        }
+
+}
     refreshData();
 
     //Plays a card from a hand.
     $scope.playCard=function(id){
-        game.playCard(id);
+        var card=game.playCardByID(id);
+        if(card!=null){
+            console.log("Playing card:"+card);
+            game.setOptCard(card);
+            if(card.requiresInput()){
+                console.log("Processing input");
+                $scope.options=card.getUI(game.getActivePlayer());
+                $scope.end="Finish playing";
+            }
+        }
         refreshData();
     }
 
@@ -172,4 +236,17 @@ phonecatApp.controller('PhoneListCtrl', function($scope) {
         game.playTreasures();
         refreshData();
     }
+
+    //This is the function that is called when a card is played
+    $scope.playOpt=function(id){
+        game.playOpt(id);
+        refreshData();
+    }
+
+    //When you are done playing a card that requires input, this function is called
+    $scope.finishPlay=function(){
+        game.resolvePlay();
+        refreshData();
+    }
+
 });
