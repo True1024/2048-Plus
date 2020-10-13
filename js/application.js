@@ -21,8 +21,7 @@ window.requestAnimationFrame(function () {
 
   var a=$("body").find(".container").find(".game-container").find(".grid-container")
   var q=$("body").find(".game-container")
-
-  var width=parseInt(s)*122+20
+  
   q.css("width",width+"px")
   q.css("height",width+"px")
   console.log("Setting game width")
